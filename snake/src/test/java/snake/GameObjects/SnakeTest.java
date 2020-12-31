@@ -9,21 +9,17 @@ import snake.Constants.Direction;
 
 public class SnakeTest {
 
-    private int initialX;
-    private int initialY;
-    private int playerID;
-    private int length;
+    private int initialX = 3;
+    private int initialY = 3;
+    private int playerID = 1;
+    private int length = 3;
 
-    @BeforeEach
-    public void setUp() {
+    @Test
+    public void test_CreateSnake_Up() {
         initialX = 3;
         initialY = 3;
         playerID = 1;
         length = 3;
-    }
-
-    @Test
-    public void test_CreateSnake_Up() {
         Snake snake = new Snake(initialX, initialY, length, playerID, Direction.UP);
         assertEquals(snake.getSnakeBody().size(), length);
         assertEquals(snake.getSnakeBody().getFirst().getX(), initialX);

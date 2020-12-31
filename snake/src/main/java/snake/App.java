@@ -1,17 +1,27 @@
 package snake;
 
-/**
- * Hello world!
- */
-public final class App {
-    private App() {
+
+import java.awt.Canvas;
+import java.awt.Graphics;
+import javax.swing.JFrame;
+
+
+public class App extends Canvas {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("My Drawing");
+        Canvas canvas = new App();
+        canvas.setSize(400, 400);
+        frame.add(canvas);
+        frame.pack();
+        frame.setVisible(true);
     }
 
-    /**
-     * Says hello to the world.
-     * @param args The arguments of the program.
-     */
-    public static void main(String[] args) {
-        System.out.println("Hello Word!");
+    public void paint(Graphics g) {
+        g.fillOval(100, 100, 200, 200);
     }
 }
