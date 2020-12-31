@@ -1,4 +1,4 @@
-package snake.src.main.java.snake.Constants;
+package snake.Constants;
 
 public enum GameObjectType {
     SNAKEPART,

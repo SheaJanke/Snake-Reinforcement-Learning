@@ -1,6 +1,6 @@
-package snake.src.main.java.snake.gameobjects;
+package snake.GameObjects;
 
-import snake.src.main.java.snake.Constants.GameObjectType;
+import snake.Constants.GameObjectType;
 
 public abstract class GameObject {
     private int x;

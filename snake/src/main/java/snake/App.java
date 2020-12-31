@@ -1,4 +1,4 @@
-package snake.src.main.java.snake;
+package snake;
 
 /**
  * Hello world!

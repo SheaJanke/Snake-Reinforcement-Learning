@@ -1,16 +1,16 @@
-package snake.src.main.java.snake.gameobjects;
+package snake.GameObjects;
 
-import snake.src.main.java.snake.Constants.GameObjectType;
+import snake.Constants.GameObjectType;
 
 public class SnakePart extends GameObject {
-    private int player;
+    private int playerID;
 
-    public SnakePart(int x, int y, int player) {
+    public SnakePart(int x, int y, int playerID) {
         super(x, y, GameObjectType.SNAKEPART);
-        this.player = player;
+        this.playerID = playerID;
     }
     
-    public int getPlayer() {
-        return player;
+    public int getPlayerID() {
+        return playerID;
     }
 }
