@@ -1,7 +1,8 @@
 package snake.Constants;
 
 public enum Direction {
-    FORWARD,
+    UP,
     LEFT,
-    RIGHT
+    RIGHT,
+    DOWN
 }
