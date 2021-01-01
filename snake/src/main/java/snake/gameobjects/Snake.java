@@ -2,6 +2,8 @@ package snake.GameObjects;
 
 import java.util.*;
 import snake.Constants.Direction;
+import snake.Constants.SquareType;
+import snake.Render.Square;
 
 public class Snake {
 

@@ -4,22 +4,22 @@ import snake.Constants.SquareType;
 import java.awt.Graphics;
 
 public abstract class Square {
-    
-    public int x;
-    public int y;
-    public int size;
-    private SquareType type;
 
-    public Square(int x, int y, int size, SquareType type){
-        this.x = x;
-        this.y = y;
-        this.size = size;
+    public int row;
+    public int col;
+    private SquareType type;
+    public Board board;
+
+    public Square(int row, int col, SquareType type, Board board) {
+        this.row = row;
+        this.col = col;
         this.type = type;
+        this.board = board;
     }
 
     public abstract void render(Graphics g);
 
-    public SquareType getType(){
+    public SquareType getType() {
         return type;
     }
 

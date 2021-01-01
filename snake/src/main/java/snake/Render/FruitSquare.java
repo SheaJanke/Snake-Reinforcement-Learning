@@ -6,14 +6,17 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class FruitSquare extends Square {
-    public FruitSquare(int x, int y, int size){
-        super(x, y, size, SquareType.FRUIT);
+
+    public FruitSquare(int row, int col, Board board) {
+        super(row, col, SquareType.FRUIT, board);
     }
 
-    public void render(Graphics g){
+    public void render(Graphics g) {
         g.setColor(Color.RED);
-        g.fillRect(x, y, size, size);
+        g.fillRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
+                board.getSquareSize());
         g.setColor(Color.BLACK);
-        g.drawRect(x, y, size, size);
+        g.drawRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
+                board.getSquareSize());
     }
 }
