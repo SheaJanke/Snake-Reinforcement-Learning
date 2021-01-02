@@ -6,11 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import snake.Constants.Direction;
-import snake.GameObjects.SnakePart;
-import snake.Render.Board;
-import snake.Render.EmptySquare;
-import snake.Render.SnakeHeadSquare;
-import snake.Render.SnakePartSquare;
+import snake.GameObjects.Board;
+import snake.GameObjects.Snake;
 
 
 public class App extends Canvas {
@@ -32,6 +29,7 @@ public class App extends Canvas {
     public void paint(Graphics g) {
         Board board = new Board(600, 11, g);
         board.render();
-        board.addToBoard(5, 5, new SnakePartSquare(5,5,board));
+        Snake snake = new Snake(5, 5, 3, 1, Direction.DOWN, board);
+        board.addSnakeToBoard(snake);
     }
 }

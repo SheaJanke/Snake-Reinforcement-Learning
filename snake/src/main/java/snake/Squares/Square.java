@@ -1,6 +1,8 @@
-package snake.Render;
+package snake.Squares;
 
 import snake.Constants.SquareType;
+import snake.GameObjects.Board;
+
 import java.awt.Graphics;
 
 public abstract class Square {
@@ -17,7 +19,7 @@ public abstract class Square {
         this.board = board;
     }
 
-    public abstract void render(Graphics g);
+    public abstract void render();
 
     public SquareType getType() {
         return type;

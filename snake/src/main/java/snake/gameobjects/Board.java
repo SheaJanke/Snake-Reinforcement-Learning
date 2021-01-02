@@ -1,10 +1,12 @@
-package snake.Render;
-
-import java.awt.Graphics;
-
-import snake.Constants.SquareType;
+package snake.GameObjects;
 
 import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Deque;
+
+import snake.Squares.EmptySquare;
+import snake.Squares.Square;
+import snake.Squares.SnakeSquares.SnakeSquare;
 
 public class Board {
 
@@ -38,15 +40,24 @@ public class Board {
         g.fillRect(0, 0, boardSize, boardSize);
         for (int i = 0; i < squaresPerRow; i++) {
             for (int j = 0; j < squaresPerRow; j++) {
-                board[i][j].render(g);
+                board[i][j].render();
             }
         }
 
     }
 
-    public void addToBoard(int row, int col, Square square) {
+    public void addSquareToBoard(int row, int col, Square square) {
         board[row][col] = square;
-        square.render(g);
+        square.render();
+    }
+
+    public void addSnakeToBoard(Snake snake){
+        Deque<SnakeSquare> parts = snake.getSnakeBody();
+        while(!parts.isEmpty()){
+            SnakeSquare part = parts.getFirst();
+            parts.removeFirst();
+            addSquareToBoard(part.row, part.col, part);
+        }
     }
 
     public int indexToCoordinates(int index) {
@@ -55,5 +66,9 @@ public class Board {
 
     public int getSquareSize() {
         return squareSize;
+    }
+
+    public Graphics getGraphics(){
+        return g;
     }
 }
