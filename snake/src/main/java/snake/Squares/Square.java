@@ -3,8 +3,6 @@ package snake.Squares;
 import snake.Constants.SquareType;
 import snake.GameObjects.Board;
 
-import java.awt.Graphics;
-
 public abstract class Square {
 
     public int row;

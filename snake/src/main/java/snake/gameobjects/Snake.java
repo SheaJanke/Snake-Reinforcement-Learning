@@ -2,6 +2,7 @@ package snake.GameObjects;
 
 import java.util.*;
 import snake.Constants.Direction;
+import snake.Squares.EmptySquare;
 import snake.Squares.SnakeSquares.SnakeHeadSquare;
 import snake.Squares.SnakeSquares.SnakePartSquare;
 import snake.Squares.SnakeSquares.SnakeSquare;
@@ -24,22 +25,25 @@ public class Snake {
             throw new RuntimeException("Can't create a snake with length < 1.");
         }
         body = new LinkedList<SnakeSquare>();
+        SnakeHeadSquare head;
         switch (direction) {
             case UP:
-                body.addFirst(new SnakeHeadSquare(headX, headY + length - 1, playerID, board, direction));
+                head = new SnakeHeadSquare(headX, headY + length - 1, playerID, board, direction);
                 break;
             case LEFT:
-                body.addFirst(new SnakeHeadSquare(headX + length - 1, headY, playerID, board, direction));
+                head = new SnakeHeadSquare(headX + length - 1, headY, playerID, board, direction);
                 break;
             case RIGHT:
-                body.addFirst(new SnakeHeadSquare(headX - length + 1, headY, playerID, board, direction));
+                head = new SnakeHeadSquare(headX - length + 1, headY, playerID, board, direction);
                 break;
             case DOWN:
-                body.addFirst(new SnakeHeadSquare(headX, headY - length + 1, playerID, board, direction));
+                head = new SnakeHeadSquare(headX, headY - length + 1, playerID, board, direction);
                 break;
             default:
                 throw new RuntimeException("Invalid direction.");
         }
+        body.addFirst(head);
+        board.addSquareToBoard(head);
         for (int i = 0; i < length - 1; i++) {
             addToFront();
         }
@@ -52,9 +56,10 @@ public class Snake {
         }
 
         // Replace the old head with a body part.
-        SnakeSquare oldHead = body.getFirst();
-        body.removeFirst();
-        body.addFirst(new SnakePartSquare(oldHead));
+        SnakeSquare oldHead = body.removeFirst();
+        SnakeSquare newPart = new SnakePartSquare(oldHead);
+        body.addFirst(newPart);
+        board.addSquareToBoard(newPart);
 
         SnakeSquare newHead;
         switch (direction) {
@@ -74,7 +79,18 @@ public class Snake {
                 throw new RuntimeException("Invalid direction.");
         }
         body.addFirst(newHead);
+        board.addSquareToBoard(newHead);
     };
+
+    public void removeFromBack(){
+        if(body.size() < 1){
+            throw new RuntimeException("Snake is too short to removeFromBack().");
+        }
+        SnakeSquare oldBack = body.removeLast();
+        board.addSquareToBoard(new EmptySquare(oldBack));
+
+
+    }
 
     public void SetDirection(Direction direction) {
         this.direction = direction;

@@ -46,18 +46,9 @@ public class Board {
 
     }
 
-    public void addSquareToBoard(int row, int col, Square square) {
-        board[row][col] = square;
+    public void addSquareToBoard(Square square) {
+        board[square.row][square.col] = square;
         square.render();
-    }
-
-    public void addSnakeToBoard(Snake snake){
-        Deque<SnakeSquare> parts = snake.getSnakeBody();
-        while(!parts.isEmpty()){
-            SnakeSquare part = parts.getFirst();
-            parts.removeFirst();
-            addSquareToBoard(part.row, part.col, part);
-        }
     }
 
     public int indexToCoordinates(int index) {
@@ -71,4 +62,5 @@ public class Board {
     public Graphics getGraphics(){
         return g;
     }
+
 }

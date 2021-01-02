@@ -30,6 +30,5 @@ public class App extends Canvas {
         Board board = new Board(600, 11, g);
         board.render();
         Snake snake = new Snake(5, 5, 3, 1, Direction.DOWN, board);
-        board.addSnakeToBoard(snake);
     }
 }

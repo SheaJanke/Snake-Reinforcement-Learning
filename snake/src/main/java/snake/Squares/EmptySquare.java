@@ -12,6 +12,10 @@ public class EmptySquare extends Square {
         super(row, col, SquareType.EMPTY, board);
     }
 
+    public EmptySquare(Square square){
+        super(square.row, square.col, SquareType.EMPTY, square.board);
+    }
+
     public void render() {
         Graphics g = board.getGraphics();
         g.setColor(Color.LIGHT_GRAY);
