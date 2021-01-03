@@ -15,8 +15,7 @@ public class SnakePartSquare extends SnakeSquare {
         super(oldPart.row, oldPart.col, oldPart.playerID, SquareType.SNAKEPART, oldPart.board);
     }
 
-    public void render() {
-        Graphics g = board.getGraphics();
+    public void render(Graphics g) {
         g.setColor(Color.GREEN);
         g.fillRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
                 board.getSquareSize());

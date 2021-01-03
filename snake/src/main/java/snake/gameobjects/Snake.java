@@ -90,7 +90,7 @@ public class Snake {
         board.addSquareToBoard(new EmptySquare(oldBack));
     }
 
-    public void SetDirection(Direction direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 

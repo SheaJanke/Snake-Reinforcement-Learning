@@ -20,9 +20,12 @@ public class Game extends Canvas implements Runnable {
     private static final long serialVersionUID = 1L;
     public static final int WIDTH = 600, HEIGHT = 600;
     public int secondsPast = 0;
+    public Board board;
+    public Snake snake;
     
     public Game() { 
         window = new Window(WIDTH,HEIGHT,"Gravity Gauntlet",this);
+        setUp();
     }
     
     public synchronized void start() {
@@ -72,7 +75,9 @@ public class Game extends Canvas implements Runnable {
             
             if (System.currentTimeMillis() - lastTimer >= 1000) {
                 lastTimer += 1000;
-                secondsPast++;
+                if(snake != null){
+                    snake.move();
+                }
                 System.out.println(ticks + " ticks, " + frames + " frames");
                 frames = 0;
                 ticks = 0;
@@ -93,16 +98,16 @@ public class Game extends Canvas implements Runnable {
 
         g = bs.getDrawGraphics();
 
-        Board board = new Board(600, 11, g);
-        board.render();
-        Snake snake = new Snake(5, 5, 3, 1, Direction.DOWN, board);
-        snake.move();
-        snake.SetDirection(Direction.LEFT);
-        for(int i = 0; i < secondsPast; i++){
-            snake.move();
-        }
+        board.render(g);
+
         g.dispose();
         bs.show();
+    }
+
+    public void setUp(){
+        board = new Board(600, 11);
+        snake = new Snake(5, 5, 3, 1, Direction.DOWN, board);
+        this.addKeyListener(new KeyInput(snake));
     }
 
     public static void main(String[] args) {

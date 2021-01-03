@@ -12,8 +12,7 @@ public class FruitSquare extends Square {
         super(row, col, SquareType.FRUIT, board);
     }
 
-    public void render() {
-        Graphics g = board.getGraphics();
+    public void render(Graphics g) {
         g.setColor(Color.RED);
         g.fillRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
                 board.getSquareSize());

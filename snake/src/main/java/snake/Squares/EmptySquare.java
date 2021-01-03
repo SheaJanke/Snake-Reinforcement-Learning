@@ -16,8 +16,7 @@ public class EmptySquare extends Square {
         super(square.row, square.col, SquareType.EMPTY, square.board);
     }
 
-    public void render() {
-        Graphics g = board.getGraphics();
+    public void render(Graphics g) {
         g.setColor(Color.LIGHT_GRAY);
         g.fillRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
                 board.getSquareSize());

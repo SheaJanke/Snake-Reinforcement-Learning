@@ -2,11 +2,9 @@ package snake.GameObjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Deque;
 
 import snake.Squares.EmptySquare;
 import snake.Squares.Square;
-import snake.Squares.SnakeSquares.SnakeSquare;
 
 public class Board {
 
@@ -15,12 +13,11 @@ public class Board {
     private int boarderSize;
     private int boardSize;
     private Square board[][];
-    private Graphics g;
+    private boolean changed[][];
 
-    public Board(int boardSize, int squaresPerRow, Graphics g) {
+    public Board(int boardSize, int squaresPerRow) {
         this.boardSize = boardSize;
         this.squaresPerRow = squaresPerRow;
-        this.g = g;
         squareSize = boardSize / (squaresPerRow + 1);
         boarderSize = squareSize / 2;
         initializeBoard();
@@ -28,19 +25,22 @@ public class Board {
 
     private void initializeBoard() {
         board = new Square[squaresPerRow][squaresPerRow];
+        changed = new boolean[squaresPerRow][squaresPerRow];
         for (int i = 0; i < squaresPerRow; i++) {
             for (int j = 0; j < squaresPerRow; j++) {
                 board[i][j] = new EmptySquare(i, j, this);
+                changed[i][j] = true;
             }
         }
     }
 
-    public void render() {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, boardSize, boardSize);
+    public void render(Graphics g) {
         for (int i = 0; i < squaresPerRow; i++) {
             for (int j = 0; j < squaresPerRow; j++) {
-                board[i][j].render();
+                if(changed[i][j]){
+                    board[i][j].render(g);
+                    changed[i][j] = false;
+                }
             }
         }
 
@@ -48,7 +48,7 @@ public class Board {
 
     public void addSquareToBoard(Square square) {
         board[square.row][square.col] = square;
-        square.render();
+        changed[square.row][square.col] = true;
     }
 
     public int indexToCoordinates(int index) {
@@ -57,10 +57,6 @@ public class Board {
 
     public int getSquareSize() {
         return squareSize;
-    }
-
-    public Graphics getGraphics(){
-        return g;
     }
 
 }

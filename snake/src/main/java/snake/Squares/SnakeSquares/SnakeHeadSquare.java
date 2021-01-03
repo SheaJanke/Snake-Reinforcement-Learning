@@ -16,8 +16,7 @@ public class SnakeHeadSquare extends SnakeSquare {
         this.direction = direction;
     }
 
-    public void render() {
-        Graphics g = board.getGraphics();
+    public void render(Graphics g) {
         // Draw square
         g.setColor(Color.GREEN);
         g.fillRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
