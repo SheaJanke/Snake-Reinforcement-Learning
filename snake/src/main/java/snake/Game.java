@@ -23,8 +23,8 @@ public class Game extends Canvas implements Runnable {
     public int secondsPast = 0;
     
     public Game() { 
-        window = new Window(WIDTH,HEIGHT,"Gravity Gauntlet",this);
         handler = new Handler(this, false);
+        window = new Window(WIDTH,HEIGHT,"Gravity Gauntlet",this);
     }
     
     public synchronized void start() {

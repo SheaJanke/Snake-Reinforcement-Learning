@@ -3,6 +3,7 @@ package snake.GameObjects;
 import java.util.*;
 import snake.Constants.Direction;
 import snake.Squares.EmptySquare;
+import snake.Squares.Square;
 import snake.Squares.SnakeSquares.SnakeHeadSquare;
 import snake.Squares.SnakeSquares.SnakePartSquare;
 import snake.Squares.SnakeSquares.SnakeSquare;
@@ -12,12 +13,14 @@ public class Snake {
     private Direction direction;
     private int playerID;
     private Board board;
+    private boolean removeBackFlag;
 
     public Snake(int x, int y, int length, int playerID, Direction direction, Board board) {
         this.playerID = playerID;
         this.direction = direction;
         this.board = board;
         createSnake(x, y, length);
+        removeBackFlag = true;
     }
 
     private void createSnake(int headX, int headY, int length) {
@@ -78,16 +81,21 @@ public class Snake {
             default:
                 throw new RuntimeException("Invalid direction.");
         }
+        handleCollision(newHead);
         body.addFirst(newHead);
         board.addSquareToBoard(newHead);
     };
 
     public void removeFromBack(){
-        if(body.size() < 1){
-            throw new RuntimeException("Snake is too short to removeFromBack().");
+        if(removeBackFlag){
+            if(body.size() < 1){
+                throw new RuntimeException("Snake is too short to removeFromBack().");
+            }
+            SnakeSquare oldBack = body.removeLast();
+            board.addSquareToBoard(new EmptySquare(oldBack));
+        }else{
+            removeBackFlag = true;
         }
-        SnakeSquare oldBack = body.removeLast();
-        board.addSquareToBoard(new EmptySquare(oldBack));
     }
 
     public void setDirection(Direction direction) {
@@ -101,6 +109,21 @@ public class Snake {
     public void move(){
         addToFront();
         removeFromBack();
+    }
+
+    private void handleCollision(Square newHead){
+        Square collision = board.getSquare(newHead.row, newHead.col);
+        switch(collision.getType()){
+            case EMPTY:
+                break;
+            case FRUIT:
+                removeBackFlag = false;
+                break;
+            case SNAKEHEAD:
+                break;
+            case SNAKEPART:
+                break;
+        }
     }
 
 }
