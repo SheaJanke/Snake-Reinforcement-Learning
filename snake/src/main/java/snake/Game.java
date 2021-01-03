@@ -17,15 +17,14 @@ public class Game extends Canvas implements Runnable {
     public int tickCount = 0;
     private static Graphics g;
     private Window window;
+    private Handler handler;
     private static final long serialVersionUID = 1L;
     public static final int WIDTH = 600, HEIGHT = 600;
     public int secondsPast = 0;
-    public Board board;
-    public Snake snake;
     
     public Game() { 
         window = new Window(WIDTH,HEIGHT,"Gravity Gauntlet",this);
-        setUp();
+        handler = new Handler(this, false);
     }
     
     public synchronized void start() {
@@ -41,7 +40,7 @@ public class Game extends Canvas implements Runnable {
     @Override
     public void run() {
         long lastTime = System.nanoTime();
-        double nsPerTick = 1000000000D / 64;
+        double nsPerTick = 1000000000D / 3;
         
         int ticks = 0;
         int frames = 0;
@@ -75,9 +74,6 @@ public class Game extends Canvas implements Runnable {
             
             if (System.currentTimeMillis() - lastTimer >= 1000) {
                 lastTimer += 1000;
-                if(snake != null){
-                    snake.move();
-                }
                 System.out.println(ticks + " ticks, " + frames + " frames");
                 frames = 0;
                 ticks = 0;
@@ -87,6 +83,7 @@ public class Game extends Canvas implements Runnable {
     
     public void tick() {
         tickCount++;
+        handler.tick();
     }
     
     public void render() {
@@ -98,16 +95,10 @@ public class Game extends Canvas implements Runnable {
 
         g = bs.getDrawGraphics();
 
-        board.render(g);
+        handler.render(g);
 
         g.dispose();
         bs.show();
-    }
-
-    public void setUp(){
-        board = new Board(600, 11);
-        snake = new Snake(5, 5, 3, 1, Direction.DOWN, board);
-        this.addKeyListener(new KeyInput(snake));
     }
 
     public static void main(String[] args) {
