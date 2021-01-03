@@ -88,8 +88,6 @@ public class Snake {
         }
         SnakeSquare oldBack = body.removeLast();
         board.addSquareToBoard(new EmptySquare(oldBack));
-
-
     }
 
     public void SetDirection(Direction direction) {
@@ -98,6 +96,11 @@ public class Snake {
 
     public Deque<SnakeSquare> getSnakeBody() {
         return body;
+    }
+
+    public void move(){
+        addToFront();
+        removeFromBack();
     }
 
 }
