@@ -3,15 +3,12 @@ package snake;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import snake.Constants.Direction;
-import snake.GameObjects.Snake;
+public class KeyInput implements KeyListener {
 
-public class KeyInput implements KeyListener{
+    private Handler handler;
 
-    private Snake snake;
-
-    public KeyInput(Snake snake){
-        this.snake = snake;
+    public KeyInput(Handler handler) {
+        this.handler = handler;
     }
 
     @Override
@@ -22,23 +19,8 @@ public class KeyInput implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         // TODO Auto-generated method stub
-        switch(e.getKeyCode()){
-            case 37:
-                snake.setDirection(Direction.LEFT);
-                break;
-            case 38:
-                snake.setDirection(Direction.UP);
-                break;
-            case 39:
-                snake.setDirection(Direction.RIGHT);
-                break;
-            case 40:
-                snake.setDirection(Direction.DOWN);
-                break;
-            default:
-                break;
-        }
-        
+        handler.keyPressed(e);
+
     }
 
     @Override
@@ -47,6 +29,4 @@ public class KeyInput implements KeyListener{
 
     }
 
-    
-    
 }

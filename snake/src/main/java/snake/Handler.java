@@ -1,47 +1,37 @@
 package snake;
 
-import snake.Constants.Direction;
-import snake.GameObjects.Board;
-import snake.GameObjects.FruitSpawner;
-import snake.GameObjects.Snake;
-
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
+
+import snake.Constants.ScreenType;
+import snake.Screens.GameScreen;
+import snake.Screens.Screen;
 
 public class Handler {
-    
-    private Game game;
-    private Board board;
-    private Snake playerSnake;
-    private Snake aiSnake;
-    private FruitSpawner fruitSpawner;
 
-    public Handler(Game game, boolean twoPlayer){
-        this.game = game;
-        if(twoPlayer){
-            setUpTwoPlayer();
-        }else{
-            setUpOnePlayer();
-        }
+    private Map<ScreenType, Screen> screens;
+    private ScreenType gameState;
+
+    public Handler(Game game) {
+        game.addKeyListener(new KeyInput(this));
+        screens = new HashMap<ScreenType, Screen>();
+        screens.put(ScreenType.GAMESCREEN, new GameScreen());
+        screens.get(ScreenType.GAMESCREEN).onStart();
+        gameState = ScreenType.GAMESCREEN;
     }
 
-    public void tick(){
-        playerSnake.move();
-        fruitSpawner.tick();
+    public void tick() {
+        screens.get(gameState).tick();
     }
 
-    public void render(Graphics g){
-        board.render(g);
+    public void render(Graphics g) {
+        screens.get(gameState).render(g);
     }
 
-    private void setUpTwoPlayer(){
-
-    }
-
-    private void setUpOnePlayer(){
-        board = new Board(600, 11);
-        playerSnake = new Snake(7, 7, 3, 1, Direction.UP, board);
-        fruitSpawner = new FruitSpawner(board);
-        game.addKeyListener(new KeyInput(playerSnake));
+    public void keyPressed(KeyEvent e) {
+        screens.get(gameState).keyPressed(e);
     }
 
 }

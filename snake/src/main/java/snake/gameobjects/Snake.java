@@ -1,6 +1,8 @@
 package snake.GameObjects;
 
-import java.util.*;
+import java.util.Deque;
+import java.util.LinkedList;
+
 import snake.Constants.Direction;
 import snake.Squares.EmptySquare;
 import snake.Squares.Square;
@@ -86,14 +88,14 @@ public class Snake {
         board.addSquareToBoard(newHead);
     };
 
-    public void removeFromBack(){
-        if(removeBackFlag){
-            if(body.size() < 1){
+    public void removeFromBack() {
+        if (removeBackFlag) {
+            if (body.size() < 1) {
                 throw new RuntimeException("Snake is too short to removeFromBack().");
             }
             SnakeSquare oldBack = body.removeLast();
             board.addSquareToBoard(new EmptySquare(oldBack));
-        }else{
+        } else {
             removeBackFlag = true;
         }
     }
@@ -106,14 +108,14 @@ public class Snake {
         return body;
     }
 
-    public void move(){
+    public void move() {
         addToFront();
         removeFromBack();
     }
 
-    private void handleCollision(Square newHead){
+    private void handleCollision(Square newHead) {
         Square collision = board.getSquare(newHead.row, newHead.col);
-        switch(collision.getType()){
+        switch (collision.getType()) {
             case EMPTY:
                 break;
             case FRUIT:

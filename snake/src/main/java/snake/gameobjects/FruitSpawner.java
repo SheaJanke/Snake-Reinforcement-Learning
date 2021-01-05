@@ -1,7 +1,5 @@
 package snake.GameObjects;
 
-import snake.Squares.FruitSquare;
-
 public class FruitSpawner {
     
     private final int SPAWN_RATE = 5;
