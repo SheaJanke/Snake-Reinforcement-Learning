@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import snake.Constants.ScreenType;
+import snake.Screens.GameOverScreen;
 import snake.Screens.GameScreen;
 import snake.Screens.Screen;
 import snake.Screens.StartScreen;
@@ -23,12 +24,15 @@ public class Handler {
         screens = new HashMap<ScreenType, Screen>();
         screens.put(ScreenType.GAMESCREEN, new GameScreen(this));
         screens.put(ScreenType.STARTSCREEN, new StartScreen(this));
+        screens.put(ScreenType.GAMEOVER, new GameOverScreen(this));
         init();
         
     }
 
     public void tick() {
-        screens.get(gameState).tick();
+        if(!changingState.get()){
+            screens.get(gameState).tick();
+        }
     }
 
     public void render(Graphics g) {
@@ -38,11 +42,15 @@ public class Handler {
     }
 
     public void keyPressed(KeyEvent e) {
-        screens.get(gameState).keyPressed(e);
+        if(!changingState.get()){
+            screens.get(gameState).keyPressed(e);
+        }
     }
 
     public void mouseClicked(MouseEvent e){
-        screens.get(gameState).mouseClicked(e);
+        if(!changingState.get()){
+            screens.get(gameState).mouseClicked(e);
+        }
     }
 
     private void init(){
@@ -55,7 +63,6 @@ public class Handler {
         screens.get(gameState).onEnd();
         gameState = screenType;
         screens.get(gameState).onStart();
-        isChangingState(false);
     }
 
     public void isChangingState(boolean bool){

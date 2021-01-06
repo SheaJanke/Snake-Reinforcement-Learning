@@ -1,21 +1,26 @@
 package snake.Screens;
 
+import snake.Handler;
+import snake.Constants.ScreenType;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
-import snake.Handler;
-import snake.Constants.ScreenType;
+public class GameOverScreen extends Screen {
 
-public class StartScreen extends Screen {
-
-    public StartScreen(Handler handler) {
+    public GameOverScreen(Handler handler) {
         super(handler);
     }
 
     @Override
-    public void render(Graphics g, int canvasSize) {
+    public void onStart(){
+        super.onStart();
+    }
+
+    @Override
+    public void render(Graphics g, int canvasSize){
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, canvasSize, canvasSize);
         int center = canvasSize/2;
@@ -25,7 +30,7 @@ public class StartScreen extends Screen {
         g.drawRect(center-100, center-50, 200, 100);
         g.setColor(Color.BLACK);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-        g.drawString("START", center-50, center+15);
+        g.drawString("Play Again", center-50, center-30);
     }
 
     @Override
@@ -36,7 +41,7 @@ public class StartScreen extends Screen {
                 break;
             default:
                 break;
-        }
+        } 
     }
     
 }

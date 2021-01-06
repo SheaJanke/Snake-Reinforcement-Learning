@@ -2,5 +2,6 @@ package snake.Constants;
 
 public enum ScreenType {
     STARTSCREEN,
-    GAMESCREEN
+    GAMESCREEN,
+    GAMEOVER
 }

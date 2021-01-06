@@ -22,13 +22,13 @@ public class GameScreen extends Screen {
     @Override
     public void onStart() {
         setUpOnePlayer();
+        super.onStart();
     }
 
     @Override
     public void tick() {
         playerSnake.move();
         fruitSpawner.tick();
-
     }
 
     @Override
@@ -59,7 +59,7 @@ public class GameScreen extends Screen {
 
     private void setUpOnePlayer() {
         board = new Board(11);
-        playerSnake = new Snake(7, 7, 3, 1, Direction.UP, board);
+        playerSnake = new Snake(7, 7, 3, 1, Direction.UP, board, handler);
         fruitSpawner = new FruitSpawner(board);
     }
 }

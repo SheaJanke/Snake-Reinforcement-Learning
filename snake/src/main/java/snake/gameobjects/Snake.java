@@ -3,7 +3,9 @@ package snake.GameObjects;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import snake.Handler;
 import snake.Constants.Direction;
+import snake.Constants.ScreenType;
 import snake.Squares.EmptySquare;
 import snake.Squares.Square;
 import snake.Squares.SnakeSquares.SnakeHeadSquare;
@@ -15,12 +17,14 @@ public class Snake {
     private Direction direction;
     private int playerID;
     private Board board;
+    private Handler handler;
     private boolean removeBackFlag;
 
-    public Snake(int x, int y, int length, int playerID, Direction direction, Board board) {
+    public Snake(int x, int y, int length, int playerID, Direction direction, Board board, Handler handler) {
         this.playerID = playerID;
         this.direction = direction;
         this.board = board;
+        this.handler = handler;
         createSnake(x, y, length);
         removeBackFlag = true;
     }
@@ -83,9 +87,11 @@ public class Snake {
             default:
                 throw new RuntimeException("Invalid direction.");
         }
-        handleCollision(newHead);
-        body.addFirst(newHead);
-        board.addSquareToBoard(newHead);
+        boolean alive = handleCollision(newHead);
+        if(alive){
+            body.addFirst(newHead);
+            board.addSquareToBoard(newHead);
+        }
     };
 
     public void removeFromBack() {
@@ -108,12 +114,19 @@ public class Snake {
         return body;
     }
 
+    // Returns true if alive, false otherwise;
     public void move() {
         addToFront();
         removeFromBack();
     }
 
-    private void handleCollision(Square newHead) {
+    private boolean handleCollision(SnakeSquare newHead) {
+        if(newHead.row < 0 || newHead.row >= board.getSquaresPerRow() || newHead.col < 0 || newHead.col >= board.getSquaresPerRow()){
+            if(newHead.playerID == 1){
+                handler.changeGameState(ScreenType.GAMEOVER);
+            }
+            return false;
+        }
         Square collision = board.getSquare(newHead.row, newHead.col);
         switch (collision.getType()) {
             case EMPTY:
@@ -122,10 +135,17 @@ public class Snake {
                 removeBackFlag = false;
                 break;
             case SNAKEHEAD:
-                break;
+                if(newHead.playerID == 1){
+                    handler.changeGameState(ScreenType.GAMEOVER);
+                }
+                return false;
             case SNAKEPART:
-                break;
+                if(newHead.playerID == 1){
+                    handler.changeGameState(ScreenType.GAMEOVER);
+                }
+                return false;
         }
+        return true;
     }
 
 }

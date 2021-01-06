@@ -84,4 +84,8 @@ public class Board {
         return board[row][col];
     }
 
+    public int getSquaresPerRow(){
+        return squaresPerRow;
+    }
+
 }

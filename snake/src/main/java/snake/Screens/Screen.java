@@ -15,7 +15,9 @@ public abstract class Screen {
         this.handler = handler;
     }
 
-    public void onStart(){};
+    public void onStart(){
+        handler.isChangingState(false);
+    };
 
     public void tick(){};
 
