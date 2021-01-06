@@ -3,12 +3,17 @@ package snake.Screens;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 
+import snake.Handler;
 import snake.Constants.Direction;
 import snake.GameObjects.Board;
 import snake.GameObjects.FruitSpawner;
 import snake.GameObjects.Snake;
 
 public class GameScreen extends Screen {
+
+    public GameScreen(Handler handler) {
+        super(handler);
+    }
 
     private Board board;
     private Snake playerSnake;
@@ -57,5 +62,4 @@ public class GameScreen extends Screen {
         playerSnake = new Snake(7, 7, 3, 1, Direction.UP, board);
         fruitSpawner = new FruitSpawner(board);
     }
-
 }
