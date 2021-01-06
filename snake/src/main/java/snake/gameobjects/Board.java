@@ -11,16 +11,12 @@ import snake.Squares.Square;
 public class Board {
 
     private int squaresPerRow;
-    private int squareSize;
-    private int boarderSize;
     private Square board[][];
     private boolean changed[][];
     private Random rand;
 
-    public Board(int boardSize, int squaresPerRow) {
+    public Board(int squaresPerRow) {
         this.squaresPerRow = squaresPerRow;
-        squareSize = boardSize / (squaresPerRow + 1);
-        boarderSize = squareSize / 2;
         initializeBoard();
         rand = new Random();
     }
@@ -30,17 +26,18 @@ public class Board {
         changed = new boolean[squaresPerRow][squaresPerRow];
         for (int i = 0; i < squaresPerRow; i++) {
             for (int j = 0; j < squaresPerRow; j++) {
-                board[i][j] = new EmptySquare(i, j, this);
+                board[i][j] = new EmptySquare(i, j);
                 changed[i][j] = true;
             }
         }
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g, int canvasSize) {
+        int squareSize = canvasSize / (squaresPerRow + 1);
         for (int i = 0; i < squaresPerRow; i++) {
             for (int j = 0; j < squaresPerRow; j++) {
                 if(changed[i][j]){
-                    board[i][j].render(g);
+                    board[i][j].render(g, indexToCoordinates(i, canvasSize), indexToCoordinates(j, canvasSize), squareSize);
                     changed[i][j] = false;
                 }
             }
@@ -53,12 +50,10 @@ public class Board {
         changed[square.row][square.col] = true;
     }
 
-    public int indexToCoordinates(int index) {
+    public int indexToCoordinates(int index, int canvasSize) {
+        int squareSize = canvasSize / (squaresPerRow + 1);
+        int boarderSize = (canvasSize - squaresPerRow * squareSize) / 2;
         return boarderSize + squareSize * index;
-    }
-
-    public int getSquareSize() {
-        return squareSize;
     }
 
     public void addFruitToEmpty(){
@@ -76,7 +71,7 @@ public class Board {
             for(int j = 0; j < squaresPerRow; j++){
                 if(board[i][j].getType() == SquareType.EMPTY){
                     if(numEmpty == random){
-                        addSquareToBoard(new FruitSquare(i, j, this));
+                        addSquareToBoard(new FruitSquare(i, j));
                         return;
                     }
                     numEmpty++;

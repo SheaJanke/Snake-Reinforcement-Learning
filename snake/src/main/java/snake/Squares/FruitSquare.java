@@ -1,23 +1,18 @@
 package snake.Squares;
 
-import snake.Constants.SquareType;
-import snake.GameObjects.Board;
-
 import java.awt.Color;
 import java.awt.Graphics;
 
+import snake.Constants.SquareType;
+
 public class FruitSquare extends Square {
 
-    public FruitSquare(int row, int col, Board board) {
-        super(row, col, SquareType.FRUIT, board);
+    public FruitSquare(int row, int col) {
+        super(row, col, SquareType.FRUIT);
     }
 
-    public void render(Graphics g) {
-        g.setColor(Color.RED);
-        g.fillRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
-                board.getSquareSize());
-        g.setColor(Color.BLACK);
-        g.drawRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
-                board.getSquareSize());
+    @Override
+    public void render(Graphics g, int topLeftX, int topLeftY, int squareSize) {
+        super.render(g, topLeftX, topLeftY, squareSize, Color.RED);
     }
 }

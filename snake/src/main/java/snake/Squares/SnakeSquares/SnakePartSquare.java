@@ -4,23 +4,18 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import snake.Constants.SquareType;
-import snake.GameObjects.Board;
 
 public class SnakePartSquare extends SnakeSquare {
-    public SnakePartSquare(int row, int col, int playerID, Board board) {
-        super(row, col, playerID, SquareType.SNAKEPART, board);
+    public SnakePartSquare(int row, int col, int playerID) {
+        super(row, col, playerID, SquareType.SNAKEPART);
     }
 
     public SnakePartSquare(SnakeSquare oldPart){
-        super(oldPart.row, oldPart.col, oldPart.playerID, SquareType.SNAKEPART, oldPart.board);
+        super(oldPart.row, oldPart.col, oldPart.playerID, SquareType.SNAKEPART);
     }
 
-    public void render(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.fillRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
-                board.getSquareSize());
-        g.setColor(Color.BLACK);
-        g.drawRect(board.indexToCoordinates(row), board.indexToCoordinates(col), board.getSquareSize(),
-                board.getSquareSize());
+    @Override
+    public void render(Graphics g, int topLeftX, int topLeftY, int squareSize) {
+        super.render(g, topLeftX, topLeftY, squareSize, Color.GREEN);
     }
 }

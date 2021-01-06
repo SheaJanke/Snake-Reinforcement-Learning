@@ -2,17 +2,19 @@ package snake.Screens;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public abstract class Screen {
 
-    public abstract void onStart();
+    public void onStart(){};
 
-    public abstract void tick();
+    public void tick(){};
 
-    public abstract void render(Graphics g);
+    public void render(Graphics g, int canvasSize){};
 
-    public abstract void onEnd();
+    public void onEnd(){};
 
-    public abstract void keyPressed(KeyEvent e);
+    public void keyPressed(KeyEvent e){};
 
+    public void mouseClicked(MouseEvent e){};
 }

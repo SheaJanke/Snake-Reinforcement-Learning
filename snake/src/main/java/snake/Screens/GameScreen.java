@@ -27,15 +27,8 @@ public class GameScreen extends Screen {
     }
 
     @Override
-    public void render(Graphics g) {
-        board.render(g);
-
-    }
-
-    @Override
-    public void onEnd() {
-        // TODO Auto-generated method stub
-
+    public void render(Graphics g, int canvasSize) {
+        board.render(g, canvasSize);
     }
 
     @Override
@@ -60,7 +53,7 @@ public class GameScreen extends Screen {
     }
 
     private void setUpOnePlayer() {
-        board = new Board(600, 11);
+        board = new Board(11);
         playerSnake = new Snake(7, 7, 3, 1, Direction.UP, board);
         fruitSpawner = new FruitSpawner(board);
     }

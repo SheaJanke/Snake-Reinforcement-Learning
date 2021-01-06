@@ -33,16 +33,16 @@ public class Snake {
         SnakeHeadSquare head;
         switch (direction) {
             case UP:
-                head = new SnakeHeadSquare(headX, headY + length - 1, playerID, board, direction);
+                head = new SnakeHeadSquare(headX, headY + length - 1, playerID, direction);
                 break;
             case LEFT:
-                head = new SnakeHeadSquare(headX + length - 1, headY, playerID, board, direction);
+                head = new SnakeHeadSquare(headX + length - 1, headY, playerID, direction);
                 break;
             case RIGHT:
-                head = new SnakeHeadSquare(headX - length + 1, headY, playerID, board, direction);
+                head = new SnakeHeadSquare(headX - length + 1, headY, playerID, direction);
                 break;
             case DOWN:
-                head = new SnakeHeadSquare(headX, headY - length + 1, playerID, board, direction);
+                head = new SnakeHeadSquare(headX, headY - length + 1, playerID, direction);
                 break;
             default:
                 throw new RuntimeException("Invalid direction.");
@@ -69,16 +69,16 @@ public class Snake {
         SnakeSquare newHead;
         switch (direction) {
             case UP:
-                newHead = new SnakeHeadSquare(oldHead.row, oldHead.col - 1, playerID, board, direction);
+                newHead = new SnakeHeadSquare(oldHead.row, oldHead.col - 1, playerID, direction);
                 break;
             case LEFT:
-                newHead = new SnakeHeadSquare(oldHead.row - 1, oldHead.col, playerID, board, direction);
+                newHead = new SnakeHeadSquare(oldHead.row - 1, oldHead.col, playerID, direction);
                 break;
             case RIGHT:
-                newHead = new SnakeHeadSquare(oldHead.row + 1, oldHead.col, playerID, board, direction);
+                newHead = new SnakeHeadSquare(oldHead.row + 1, oldHead.col, playerID, direction);
                 break;
             case DOWN:
-                newHead = new SnakeHeadSquare(oldHead.row, oldHead.col + 1, playerID, board, direction);
+                newHead = new SnakeHeadSquare(oldHead.row, oldHead.col + 1, playerID, direction);
                 break;
             default:
                 throw new RuntimeException("Invalid direction.");
